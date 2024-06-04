@@ -1,4 +1,4 @@
-FROM openjdk:latest
+FROM openjdk:21
 COPY . /usr/src/myapp
 WORKDIR /usr/src/myapp
 EXPOSE 8082
