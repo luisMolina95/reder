@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HTTP GET Request Example with Fetch</title>
+</head>
+<body>
+    <h1>HTTP GET Request Example with Fetch</h1>
+
+    <!-- Add a div to display a loading message -->
+    <div id="loadingMessage">Loading...</div>
+
+    <textarea id="jsonResponse" rows="10" cols="50" readonly></textarea>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                // Define the URL for the GET request
+                 // const url = 'https://personal-backend-wvxf.onrender.com/blogs';
+				 const url = 'http://localhost:8000';
+
+                // Show the loading message
+                const loadingMessage = document.querySelector('#loadingMessage');
+                loadingMessage.textContent = 'Loading...';
+
+                // Perform the GET request using fetch
+                const response = await fetch(url);
+
+                // Check if the response status is OK (200)
+                if (response.status === 200) {
+                    // Parse the JSON response
+                    const responseData = await response.json();
+
+                    // Hide the loading message once loading is complete
+                    loadingMessage.style.display = 'none';
+
+                    // Get the textarea element to display the JSON response
+                    const jsonResponse = document.querySelector('#jsonResponse');
+
+                    // Display the JSON response in the textarea
+                    jsonResponse.textContent = JSON.stringify(responseData, null, 2);
+                } else {
+                    console.error(`Error fetching data: ${response.status} - ${response.statusText}`);
+                    loadingMessage.textContent = 'Error loading data';
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                loadingMessage.textContent = 'Unexpected error';
+            }
+        });
+    </script>
+</body>
+</html>
